@@ -6,48 +6,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.dragunovskiy.apartment_rental_rest_api.dao.*;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.*;
+import ua.dragunovskiy.apartment_rental_rest_api.service.InfoService;
 
 @RestController
 @RequestMapping("/info")
 public class InfoStructDeleteController {
 
     @Autowired
-    private InfoDao<Long, Parking> parkingDao;
+    private InfoService<Long, Parking> parkingInfoService;
 
     @Autowired
-    private InfoDao<Long, EducationEstablishment> educDao;
+    private InfoService<Long, EducationEstablishment> educationEstablishmentInfoService;
 
     @Autowired
-    private InfoDao<Long, Hospital> hospitalDao;
+    private InfoService<Long, Hospital> hospitalInfoService;
 
     @Autowired
-    private InfoDao<Long, RoadJunction> roadJunctionDao;
+    private InfoService<Long, RoadJunction> roadJunctionInfoService;
 
     @Autowired
-    private InfoDao<Long, Store> storeDao;
+    private InfoService<Long, Store> storeInfoService;
 
     @RequestMapping("/delete/educ/{apartmentId}/{infoStructId}")
     public void deleteEducEstablishment(@PathVariable("apartmentId") Long apartmentId, @PathVariable("infoStructId") Long infoStructId) {
-        educDao.delete(apartmentId, infoStructId);
+        educationEstablishmentInfoService.delete(apartmentId, infoStructId);
     }
 
     @RequestMapping("/delete/hospital/{apartmentId}/{infoStructId}")
     public void deleteHospital(@PathVariable("apartmentId") Long apartmentId, @PathVariable("infoStructId") Long infoStructId) {
-        hospitalDao.delete(apartmentId, infoStructId);
+        hospitalInfoService.delete(apartmentId, infoStructId);
     }
 
     @RequestMapping("/delete/parking/{apartmentId}/{infoStructId}")
     public void deleteParking(@PathVariable("apartmentId") Long apartmentId, @PathVariable("infoStructId") Long infoStructId) {
-        parkingDao.delete(apartmentId, infoStructId);
+        parkingInfoService.delete(apartmentId, infoStructId);
     }
 
     @RequestMapping("/delete/roadJunction/{apartmentId}/{infoStructId}")
     public void deleteRoadJunction(@PathVariable("apartmentId") Long apartmentId, @PathVariable("infoStructId") Long infoStructId) {
-        roadJunctionDao.delete(apartmentId, infoStructId);
+        roadJunctionInfoService.delete(apartmentId, infoStructId);
     }
 
     @RequestMapping("/delete/store/{apartmentId}/{infoStructId}")
     public void deleteStore(@PathVariable("apartmentId") Long apartmentId, @PathVariable("infoStructId") Long infoStructId) {
-        storeDao.delete(apartmentId, infoStructId);
+        storeInfoService.delete(apartmentId, infoStructId);
     }
 }

@@ -10,7 +10,9 @@ import ua.dragunovskiy.apartment_rental_rest_api.entity.Apartment;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.ApartmentInfoStruct;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.Hospital;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ApartmentDaoImpl implements Dao<Long, Apartment> {
@@ -30,6 +32,27 @@ public class ApartmentDaoImpl implements Dao<Long, Apartment> {
     public Apartment getById(Long id) {
         Session session = entityManager.unwrap(Session.class);
         return session.get(Apartment.class, id);
+    }
+
+    @Override
+    @Transactional
+    public List<Apartment> getByAddress(String address) {
+        Session session = entityManager.unwrap(Session.class);
+        String selectByName = "from Apartment where address = :address";
+        Query<Apartment> query = session.createQuery(selectByName, Apartment.class);
+        query.setParameter("address", address);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Apartment> getByContainsAddress(String address) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Apartment> query = session.createQuery("from Apartment", Apartment.class);
+        List<Apartment> apartmentList = query.getResultList();
+        return apartmentList.stream()
+                .filter(e -> e.getAddress().startsWith(address))
+                .collect(Collectors.toList());
     }
 
     @Override

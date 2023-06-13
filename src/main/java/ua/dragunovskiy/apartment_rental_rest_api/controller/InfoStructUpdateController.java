@@ -4,43 +4,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.dragunovskiy.apartment_rental_rest_api.dao.InfoDao;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.*;
+import ua.dragunovskiy.apartment_rental_rest_api.service.InfoService;
+
+import javax.sound.sampled.AudioFileFormat;
 
 @RestController
 @RequestMapping("/info/update/")
 public class InfoStructUpdateController {
 
     @Autowired
-    private InfoDao<Long, EducationEstablishment> establishmentsDao;
+    private InfoService<Long, EducationEstablishment> educationEstablishmentInfoService;
 
     @Autowired
-    private InfoDao<Long, Hospital> hospitalDao;
+    private InfoService<Long, Hospital> hospitalInfoService;
 
     @Autowired
-    private InfoDao<Long, Parking> parkingInfoDao;
+    private InfoService<Long, Parking> parkingInfoService;
 
     @Autowired
     private InfoDao<Long, RoadJunction> roadJunctionInfoDao;
 
     @Autowired
-    private InfoDao<Long, Store> storeInfoDao;
+    private InfoService<Long, Store> storeInfoService;
 
 
     @PutMapping("/educ/{apartmentId}/{educId}")
     public void updateEducationEstablishment(@PathVariable("apartmentId") Long apartmentId, @PathVariable("educId") Long educId,
                                              @RequestBody EducationEstablishment educationEstablishment) {
-        establishmentsDao.update(apartmentId, educId, educationEstablishment);
+        educationEstablishmentInfoService.update(apartmentId, educId, educationEstablishment);
     }
 
     @PutMapping("/hospital/{apartmentId}/{hospitalId}")
     public void updateHospital(@PathVariable("apartmentId") Long apartmentId, @PathVariable("hospitalId") Long hospitalId,
                                @RequestBody Hospital hospital) {
-        hospitalDao.update(apartmentId, hospitalId, hospital);
+        hospitalInfoService.update(apartmentId, hospitalId, hospital);
     }
 
     @PutMapping("/parking/{apartmentId}/{parkingId}")
     public void updateParking(@PathVariable("apartmentId") Long apartmentId, @PathVariable("parkingId") Long parkingId,
                               @RequestBody Parking parking) {
-        parkingInfoDao.update(apartmentId, parkingId, parking);
+        parkingInfoService.update(apartmentId, parkingId, parking);
     }
 
     @PutMapping("/roadJunction/{apartmentId}/{roadJunctionId}")
@@ -52,6 +55,6 @@ public class InfoStructUpdateController {
     @PutMapping("/store/{apartmentId}/{storeId}")
     public void updateStore(@PathVariable("apartmentId") Long apartmentId, @PathVariable("storeId") Long storeId,
                             @RequestBody Store store) {
-        storeInfoDao.update(apartmentId, storeId, store);
+        storeInfoService.update(apartmentId, storeId, store);
     }
 }

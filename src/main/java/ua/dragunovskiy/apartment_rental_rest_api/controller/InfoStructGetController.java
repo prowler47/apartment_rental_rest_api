@@ -7,49 +7,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.dragunovskiy.apartment_rental_rest_api.dao.*;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.*;
+import ua.dragunovskiy.apartment_rental_rest_api.service.InfoService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/info/get/")
 public class InfoStructGetController {
-    @Autowired
-    private InfoDao<Long, Parking> parkingDao;
 
     @Autowired
-    private InfoDao<Long, EducationEstablishment> educDao;
+    private InfoService<Long, Parking> parkingInfoService;
 
     @Autowired
-    private InfoDao<Long, Hospital> hospitalDao;
+    private InfoService<Long, EducationEstablishment> educationEstablishmentInfoService;
 
     @Autowired
-    private InfoDao<Long, RoadJunction> roadJunctionDao;
+    private InfoService<Long, Hospital> hospitalInfoService;
 
     @Autowired
-    private InfoDao<Long, Store> storeDao;
+    private InfoService<Long, RoadJunction> roadJunctionInfoService;
+
+    @Autowired
+    private InfoService<Long, Store> storeInfoService;
 
     @GetMapping("/parkingList/{id}")
     public List<Parking> getAllParking(@PathVariable("id") Long id) {
-        return parkingDao.getAll(id);
+        return parkingInfoService.getAll(id);
     }
 
     @GetMapping("/educList/{id}")
     public List<EducationEstablishment> getAllEduc(@PathVariable("id") Long id) {
-        return educDao.getAll(id);
+        return educationEstablishmentInfoService.getAll(id);
     }
 
     @GetMapping("/hospitalsList/{id}")
     public List<Hospital> getAllHospitals(@PathVariable("id") Long id) {
-        return hospitalDao.getAll(id);
+        return hospitalInfoService.getAll(id);
     }
 
     @GetMapping("/roadJunctionsList/{id}")
     public List<RoadJunction> getAllRoadJunctions(@PathVariable("id") Long id) {
-        return roadJunctionDao.getAll(id);
+        return roadJunctionInfoService.getAll(id);
     }
 
     @GetMapping("/storesList/{id}")
     public List<Store> getAllStores(@PathVariable("id") Long id) {
-        return storeDao.getAll(id);
+        return storeInfoService.getAll(id);
     }
 }

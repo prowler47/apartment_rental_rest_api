@@ -1,8 +1,8 @@
-package ua.dragunovskiy.apartment_rental_rest_api.dao;
+package ua.dragunovskiy.apartment_rental_rest_api.service;
 
 import java.util.List;
 
-public interface Dao<T, E> {
+public interface Service<T, E> {
     List<E> getAll();
     E getById(Long id);
     List<E> getByAddress(String address);

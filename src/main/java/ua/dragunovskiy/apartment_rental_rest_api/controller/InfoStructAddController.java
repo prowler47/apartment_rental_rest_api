@@ -4,49 +4,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.dragunovskiy.apartment_rental_rest_api.dao.*;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.*;
+import ua.dragunovskiy.apartment_rental_rest_api.service.InfoService;
 
 @RestController
 @RequestMapping("/info/add/")
 public class InfoStructAddController {
 
     @Autowired
-    private InfoDao<Long, EducationEstablishment> establishmentsDao;
+    private InfoService<Long, EducationEstablishment> educationEstablishmentInfoService;
 
     @Autowired
-    private InfoDao<Long, Hospital> hospitalDao;
+    private InfoService<Long, Hospital> hospitalInfoService;
 
     @Autowired
-    private InfoDao<Long, Parking> parkingDao;
+    private InfoService<Long, Parking> parkingInfoService;
 
     @Autowired
-    private InfoDao<Long, RoadJunction> roadJunctionDao;
+    private InfoService<Long, RoadJunction> roadJunctionInfoService;
 
     @Autowired
-    private InfoDao<Long, Store> storeDao;
+    private InfoService<Long, Store> storeInfoService;
 
     @PostMapping("/educ/{apartmentId}")
     public void addNewEducEstablishment(@PathVariable("apartmentId") Long apartmentId, @RequestBody EducationEstablishment educationEstablishment) {
-        establishmentsDao.add(apartmentId, educationEstablishment);
+        educationEstablishmentInfoService.add(apartmentId, educationEstablishment);
     }
 
     @PostMapping("/hospital/{apartmentId}")
     public void addNewHospital(@PathVariable("apartmentId") Long apartmentId, @RequestBody Hospital hospital) {
-        hospitalDao.add(apartmentId, hospital);
+        hospitalInfoService.add(apartmentId, hospital);
     }
 
     @PostMapping("/parking/{apartmentId}")
     public void addNewParking(@PathVariable("apartmentId") Long apartmentId, @RequestBody Parking parking) {
-        parkingDao.add(apartmentId, parking);
+        parkingInfoService.add(apartmentId, parking);
     }
 
     @PostMapping("/roadJunction/{apartmentId}")
     public void addNewRoadJunction(@PathVariable("apartmentId") Long apartmentId, @RequestBody RoadJunction roadJunction) {
-        roadJunctionDao.add(apartmentId, roadJunction);
+        roadJunctionInfoService.add(apartmentId, roadJunction);
     }
 
     @PostMapping("/store/{apartmentId}")
     public void addNewStore(@PathVariable("apartmentId") Long apartmentId, @RequestBody Store store) {
-        storeDao.add(apartmentId, store);
+        storeInfoService.add(apartmentId, store);
     }
-
 }

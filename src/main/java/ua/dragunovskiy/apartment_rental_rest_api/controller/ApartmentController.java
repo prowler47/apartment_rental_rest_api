@@ -2,8 +2,8 @@ package ua.dragunovskiy.apartment_rental_rest_api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.dragunovskiy.apartment_rental_rest_api.dao.*;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.*;
+import ua.dragunovskiy.apartment_rental_rest_api.service.Service;
 
 import java.util.List;
 
@@ -13,30 +13,40 @@ import java.util.List;
 public class ApartmentController {
 
     @Autowired
-    private Dao<Long, Apartment> apartmentDao;
+    private Service<Long, Apartment> apartmentService;
 
     @GetMapping("/")
     public List<Apartment> getAllApartments() {
-        return apartmentDao.getAll();
+        return apartmentService.getAll();
     }
 
     @GetMapping("/{id}")
     public Apartment getApartmentById(@PathVariable("id") Long id) {
-       return apartmentDao.getById(id);
+        return apartmentService.getById(id);
+    }
+
+    @GetMapping("/byName/{address}")
+    public List<Apartment> getApartmentByAddress(@PathVariable("address") String address) {
+        return apartmentService.getByAddress(address);
+    }
+
+    @GetMapping("/byContainsName/{address}")
+    public List<Apartment> getApartmentByContainsAddress(@PathVariable("address") String address) {
+        return apartmentService.getByContainsAddress(address);
     }
 
     @PostMapping("/add")
     public void addNewApartment(@RequestBody Apartment apartment) {
-        apartmentDao.add(apartment);
+        apartmentService.add(apartment);
     }
 
     @PutMapping("/update/{apartmentId}")
     public void updateApartment(@PathVariable("apartmentId") Long apartmentId, @RequestBody Apartment apartment) {
-        apartmentDao.update(apartmentId, apartment);
+        apartmentService.update(apartmentId, apartment);
     }
 
     @DeleteMapping("/{id}")
     public void deleteApartment(@PathVariable("id") Long id) {
-        apartmentDao.delete(id);
+        apartmentService.delete(id);
     }
 }
