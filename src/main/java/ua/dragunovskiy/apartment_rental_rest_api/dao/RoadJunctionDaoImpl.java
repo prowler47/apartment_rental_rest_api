@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.Apartment;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.RoadJunction;
+import ua.dragunovskiy.apartment_rental_rest_api.entity.Store;
 
 import java.util.Collections;
 import java.util.List;
@@ -72,7 +73,7 @@ public class RoadJunctionDaoImpl implements InfoDao<Long, RoadJunction> {
                     .orElse(null);
             if (roadJunctionToUpdate != null) {
                 roadJunctionToUpdate.setName(roadJunctionForUpdate.getName());
-                roadJunctionForUpdate.setTime(roadJunctionForUpdate.getTime());
+                roadJunctionToUpdate.setTime(roadJunctionForUpdate.getTime());
                 session.merge(roadJunctionToUpdate);
             }
         }

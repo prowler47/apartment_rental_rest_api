@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.Apartment;
 import ua.dragunovskiy.apartment_rental_rest_api.entity.EducationEstablishment;
+import ua.dragunovskiy.apartment_rental_rest_api.entity.Hospital;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,10 +36,24 @@ public class EducationEstablishmentsDaoImpl implements InfoDao<Long, EducationEs
         Apartment apartment = session.get(Apartment.class, apartmentId);
         if (apartment != null && apartment.getApartmentInfoStruct() != null) {
             educationEstablishment.setApartmentInfoStructEduc(apartment.getApartmentInfoStruct());
+            apartment.getApartmentInfoStruct().setId(apartmentId);
             apartment.getApartmentInfoStruct().getEducationEstablishmentList().add(educationEstablishment);
-            session.merge(educationEstablishment);
+            session.persist(educationEstablishment);
         }
     }
+
+//    @Override
+//    @Transactional
+//    public void add(Long apartmentId, Hospital hospital) {
+//        Session session = entityManager.unwrap(Session.class);
+//        Apartment apartment = session.get(Apartment.class, apartmentId);
+//        if (apartment != null && apartment.getApartmentInfoStruct() != null) {
+//            hospital.setApartmentInfoStructHospitals(apartment.getApartmentInfoStruct());
+//            hospital.getApartmentInfoStructHospitals().setId(apartmentId);
+//            apartment.getApartmentInfoStruct().getHospitalList().add(hospital);
+//            session.persist(hospital);
+//        }
+//    }
 
     @Override
     @Transactional
